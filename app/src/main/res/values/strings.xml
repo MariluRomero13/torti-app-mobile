@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">torti-app</string>
+    <string name="txtUsuario">Usuario</string>
+    <string name="txtContraseña">Contraseña</string>
+    <string name="btnIniciarSesion">Iniciar Sesión</string>
 </resources>
