@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.torti_app.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText txtUsuario, txtPassword;
     private Button btnIniciaSesion;
@@ -26,30 +27,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void boot() {
         this.inicializarElementos();
-        this.agregarListeners();
     }
 
     private void inicializarElementos() {
         txtUsuario = findViewById(R.id.txt_usuario);
         txtPassword = findViewById(R.id.txt_password);
-    }
-
-    private void agregarListeners() {
-        btnIniciaSesion.setOnClickListener(this);
-    }
-
-    private void iniciarSesion(String usuario, String password) {
-        try {
-            JSONObject params = new JSONObject();
-            params.put("username", usuario);
-            params.put("password", password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        this.iniciarSesion(txtUsuario.getText().toString(), txtPassword.getText().toString());
     }
 }
