@@ -19,6 +19,7 @@
         android:id="@+id/pg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/pb_color"
         android:layout_below="@id/img_logo"/>
 
 </RelativeLayout>
