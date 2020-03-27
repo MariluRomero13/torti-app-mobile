@@ -3,4 +3,9 @@
     <string name="txtUsuario">Usuario</string>
     <string name="txtContraseña">Contraseña</string>
     <string name="btnIniciarSesion">Iniciar Sesión</string>
+    <string name="label_history">Historial</string>
+    <string name="label_delivery">Entregas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
