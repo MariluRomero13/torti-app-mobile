@@ -8,4 +8,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtMontoPagar">Monto a pagar</string>
+    <string name="txtliquidar">Liquidar</string>
+    <string name="txtAbonar">Abonar</string>
+    <string name="txtcantidad">Cantidad</string>
+    <string name="txtPagar">Total a pagar</string>
+    <string name="txtProducto">Producto</string>
 </resources>

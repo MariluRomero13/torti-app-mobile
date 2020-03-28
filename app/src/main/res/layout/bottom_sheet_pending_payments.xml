@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_pp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/txtMontoPagar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtMontoPagar"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/colorBlanco"/>
+
+    <EditText
+        android:id="@+id/txt_pago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
+        android:focusableInTouchMode="true"
+        android:layout_below="@id/txtMontoPagar" />
+
+    <Button
+        android:id="@+id/btn_abonar"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txtAbonar"
+        android:textColor="@color/colorBlanco"
+        android:background="@drawable/rounded_button_yellow"
+        android:layout_toStartOf="@id/btn_liquidar"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="10dp"/>
+
+    <Button
+        android:id="@+id/btn_liquidar"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txtliquidar"
+        android:textColor="@color/colorBlanco"
+        android:background="@drawable/rounded_button"
+        android:layout_marginTop="90dp"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>
