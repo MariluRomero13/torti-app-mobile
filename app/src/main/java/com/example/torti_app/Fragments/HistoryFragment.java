@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.torti_app.Adapters.DeliveryAdapter;
 import com.example.torti_app.Adapters.HistoryAdapter;
@@ -38,7 +39,13 @@ public class HistoryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new HistoryAdapter(this.getList()));
+        recyclerView.setAdapter(new HistoryAdapter(this.getList(), new HistoryAdapter.OnHistoryClickListener() {
+            @Override
+            public void onHistoryClick(History history) {
+                Toast.makeText(getContext(),
+                        history.getCustomer().getName(), Toast.LENGTH_SHORT).show();
+            }
+        }));
         return rootView;
     }
 

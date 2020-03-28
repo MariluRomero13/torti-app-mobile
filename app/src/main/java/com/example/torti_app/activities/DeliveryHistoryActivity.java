@@ -26,13 +26,12 @@ public class DeliveryHistoryActivity extends AppCompatActivity {
     }
 
     public void switchView(View view) {
+        selectTab(view);
         switch (view.getId()) {
             case R.id.tabDelivery:
-                selectTab(view);
                 changeFragment(new DeliveryFragment());
                 break;
             case R.id.tabHistory:
-                selectTab(view);
                 changeFragment(new HistoryFragment());
                 break;
         }

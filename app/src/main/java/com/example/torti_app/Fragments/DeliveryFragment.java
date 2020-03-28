@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.torti_app.Adapters.DeliveryAdapter;
 import com.example.torti_app.Models.Customer;
@@ -37,7 +38,13 @@ public class DeliveryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new DeliveryAdapter(this.getList()));
+        recyclerView.setAdapter(new DeliveryAdapter(this.getList(), new DeliveryAdapter.OnDeliveryClickListener() {
+            @Override
+            public void onDeliveryClick(Delivery delivery) {
+                Toast.makeText(getContext(),
+                        delivery.getCustomer().getName(), Toast.LENGTH_SHORT).show();
+            }
+        }));
         return rootView;
     }
 

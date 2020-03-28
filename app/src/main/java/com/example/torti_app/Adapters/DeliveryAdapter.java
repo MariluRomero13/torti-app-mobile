@@ -16,10 +16,17 @@ import java.util.List;
 
 public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHolder> {
 
-    private List<Delivery> deliveryList = null;
+    public interface OnDeliveryClickListener {
+        void onDeliveryClick(Delivery delivery);
+    }
 
-    public DeliveryAdapter(List<Delivery> deliveries) {
+    private OnDeliveryClickListener listener;
+
+    private List<Delivery> deliveryList;
+
+    public DeliveryAdapter(List<Delivery> deliveries, OnDeliveryClickListener listener) {
         this.deliveryList = deliveries;
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,11 +40,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Delivery delivery = this.deliveryList.get(position);
-        Customer customer = delivery.getCustomer();
-        holder.txvCustomerName.setText(String.format("Nombre: %s", customer.getName()));
-        holder.txvCustomerLastName.setText(String.format(
-                "Apellidos: %s %s", customer.getMaternalName(), customer.getPaternalName()));
-        holder.txvDate.setText(String.format("Fecha: %s", delivery.getDate()));
+        holder.bind(delivery, this.listener);
     }
 
     @Override
@@ -46,13 +49,28 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txvCustomerName = null, txvCustomerLastName = null,
-                txvDate = null;
-        public ViewHolder(@NonNull View itemView) {
+        private TextView txvCustomerName, txvCustomerLastName,
+                txvDate;
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.txvCustomerName = itemView.findViewById(R.id.txvCustomerName);
             this.txvCustomerLastName = itemView.findViewById(R.id.txvCustomerLastName);
             this.txvDate = itemView.findViewById(R.id.txvDate);
+        }
+
+        private void bind (final Delivery delivery, final OnDeliveryClickListener listener) {
+            Customer customer = delivery.getCustomer();
+            this.txvCustomerName.setText(String.format("Nombre: %s", customer.getName()));
+            this.txvCustomerLastName.setText(String.format(
+                    "Apellidos: %s %s", customer.getMaternalName(), customer.getPaternalName()));
+            this.txvDate.setText(String.format("Fecha: %s", delivery.getDate()));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onDeliveryClick(delivery);
+                }
+            });
         }
     }
 }
