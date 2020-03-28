@@ -2,7 +2,6 @@ package com.example.torti_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.boot();
-
-        this.btnIniciaSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,DeliveryHistoryActivity.class));
-            }
-        });
     }
 
     private void boot() {
@@ -40,7 +32,5 @@ public class LoginActivity extends AppCompatActivity {
     private void inicializarElementos() {
         txtUsuario = findViewById(R.id.txt_usuario);
         txtPassword = findViewById(R.id.txt_password);
-        this.btnIniciaSesion = findViewById(R.id.btn_iniciarSesion);
     }
-
 }
