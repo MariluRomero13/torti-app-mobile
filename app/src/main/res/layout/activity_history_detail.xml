@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorNegro"
-    tools:context=".activities.PendingPaymentsActivity">
+    tools:context=".activities.HistoryDetailActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pagos Pendientes"
+            android:text="Detalle de la Entrega"
             android:textColor="@color/colorBlanco"
             android:textSize="20sp"
             android:layout_centerVertical="true"
@@ -39,7 +39,7 @@
             android:textColor="@color/colorBlanco"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"/>
+            android:layout_marginStart="60dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,29 +47,14 @@
             android:text="@string/txtcantidad"
             android:textColor="@color/colorBlanco"
             android:textSize="16sp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txtPagar"
-            android:textColor="@color/colorBlanco"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="60dp"/>
 
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pendingpayments"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/r1"/>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_pagar"
+        android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAzul"

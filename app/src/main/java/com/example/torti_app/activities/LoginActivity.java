@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         this.btnIniciaSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, PendingPaymentsActivity.class));
+                startActivity(new Intent(LoginActivity.this, DeliveryHistoryActivity.class));
                 finish();
             }
         });

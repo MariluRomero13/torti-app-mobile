@@ -18,13 +18,14 @@ import com.example.torti_app.Adapters.PendingPaymentsAdapter;
 import com.example.torti_app.Models.PendingPayments;
 import com.example.torti_app.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PendingPaymentsActivity extends AppCompatActivity {
 
-    private Button btnPagar;
+    private FloatingActionButton btnPagar;
     private RecyclerView recyclerView;
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.torti_app.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import com.example.torti_app.Adapters.HistoryAdapter;
 import com.example.torti_app.Models.Customer;
 import com.example.torti_app.Models.History;
 import com.example.torti_app.R;
+import com.example.torti_app.activities.HistoryDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,7 @@ public class HistoryFragment extends Fragment {
             public void onHistoryClick(History history) {
                 Toast.makeText(getContext(),
                         history.getCustomer().getName(), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), HistoryDetailActivity.class));
             }
         }));
         return rootView;
