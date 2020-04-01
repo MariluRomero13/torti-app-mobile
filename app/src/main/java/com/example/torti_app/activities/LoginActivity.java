@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.torti_app.Models.User;
 import com.example.torti_app.R;
 
 import org.json.JSONException;
@@ -27,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         this.btnIniciaSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, DeliveryHistoryActivity.class));
-                finish();
+                User.login(getApplicationContext(), LoginActivity.this,
+                        txtUsuario.getText().toString(), txtPassword.getText().toString());
             }
         });
     }

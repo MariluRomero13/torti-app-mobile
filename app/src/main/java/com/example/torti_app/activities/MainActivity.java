@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.torti_app.Models.User;
 import com.example.torti_app.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +26,18 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                finish();
+                checkSesion();
             }
         }, 2000);
+    }
+
+    private void checkSesion() {
+        if(User.getToken(getApplicationContext()) !=  null) {
+            startActivity(new Intent(getApplicationContext(), DeliveryHistoryActivity.class));
+        } else {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+
+        finish();
     }
 }
