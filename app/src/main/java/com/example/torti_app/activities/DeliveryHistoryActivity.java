@@ -41,12 +41,12 @@ public class DeliveryHistoryActivity extends AppCompatActivity {
         if(v == this.tabDelivery){
             ((GradientDrawable)this.tabHistory
                     .getBackground())
-                    .setColor(getColor(R.color.colorBlanco));
+                    .setColor(getColor(R.color.colorNegroMate));
         }
         else {
             ((GradientDrawable)this.tabDelivery
                     .getBackground())
-                    .setColor(getColor(R.color.colorBlanco));
+                    .setColor(getColor(R.color.colorNegroMate));
         }
         ((GradientDrawable)v.getBackground()).setColor(getColor(R.color.colorVerde));
     }
