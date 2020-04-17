@@ -17,4 +17,6 @@
     <string name="label_sale">Ventas</string>
     <string name="label_map">Mapa</string>
     <string name="label_pending_payment">Pagos pendientes</string>
+    <string name="label_confirm">Confirmar</string>
+    <string name="label_payment_credit">¿Concretar pago a contado?</string>
 </resources>

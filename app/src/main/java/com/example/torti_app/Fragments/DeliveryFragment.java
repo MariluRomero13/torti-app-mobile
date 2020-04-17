@@ -39,7 +39,8 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DeliveryFragment extends Fragment implements DeliveryAdapter.OnDeliveryClickListener {
+public class DeliveryFragment extends Fragment
+        implements DeliveryAdapter.OnDeliveryClickListener {
     private RecyclerView recyclerView = null;
 
     public DeliveryFragment() {

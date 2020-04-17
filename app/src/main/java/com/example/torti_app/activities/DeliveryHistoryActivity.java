@@ -21,8 +21,12 @@ public class DeliveryHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delivery_history);
         this.tabDelivery = findViewById(R.id.tabDelivery);
         this.tabHistory = findViewById(R.id.tabHistory);
-        this.tabDelivery.performClick();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.tabDelivery.performClick();
     }
 
     public void switchView(View view) {

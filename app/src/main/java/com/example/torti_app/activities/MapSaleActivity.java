@@ -13,10 +13,14 @@ import com.example.torti_app.Fragments.SaleFragment;
 import com.example.torti_app.Models.Customer;
 import com.example.torti_app.Models.Delivery;
 import com.example.torti_app.R;
+import com.example.torti_app.Util.BottomSheetDialogSale;
 
-public class MapSaleActivity extends AppCompatActivity implements View.OnClickListener {
+public class MapSaleActivity extends AppCompatActivity
+        implements View.OnClickListener,
+        BottomSheetDialogSale.BottomSaleDialogListener {
     private ViewGroup tabSale = null, tabMap = null;
     private Delivery delivery = null;
+    private Fragment currentFragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,30 +37,36 @@ public class MapSaleActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         ((GradientDrawable)v.getBackground())
                 .setColor(getColor(R.color.colorVerde));
-        Fragment currentFragment = null;
+        this.currentFragment = null;
         switch (v.getId()) {
             case R.id.tabMap:
                 ((GradientDrawable)this.tabSale
                         .getBackground())
                         .setColor(getColor(R.color.colorNegroMate));
-                currentFragment = new MapFragment();
-                changeFragment(new MapFragment());
+                this.currentFragment = new MapFragment();
                 break;
             case R.id.tabSale:
                 ((GradientDrawable)this.tabMap
                         .getBackground())
                         .setColor(getColor(R.color.colorNegroMate));
-                currentFragment = new SaleFragment();
+                this.currentFragment = new SaleFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("delivery", this.delivery);
-                currentFragment.setArguments(bundle);
-                changeFragment(currentFragment);
+                this.currentFragment.setArguments(bundle);
                 break;
         }
+        changeFragment(this.currentFragment);
     }
 
     private void changeFragment (Fragment currentFragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout, currentFragment).commit();
+    }
+
+    @Override
+    public void onButtonClicked(View v, String deposit) {
+        if(this.currentFragment instanceof SaleFragment){
+            ((SaleFragment)this.currentFragment).action(v, deposit);
+        }
     }
 }
