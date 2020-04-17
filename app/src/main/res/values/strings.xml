@@ -14,4 +14,7 @@
     <string name="txtcantidad">Cantidad</string>
     <string name="txtPagar">Total a pagar</string>
     <string name="txtProducto">Producto</string>
+    <string name="label_sale">Ventas</string>
+    <string name="label_map">Mapa</string>
+    <string name="label_pending_payment">Pagos pendientes</string>
 </resources>

@@ -1,19 +1,43 @@
 package com.example.torti_app.Models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.torti_app.Adapters.DeliveryAdapter;
+import com.example.torti_app.Data;
+import com.example.torti_app.singletons.VolleyS;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Delivery implements Parcelable {
     private Customer customer = null;
-    private String date = null;
+    private int pendingPayment;
+    private int paymentId;
     private Delivery(Parcel in) {
-        this.date = in.readString();
         this.customer = in.readParcelable(Customer.class.getClassLoader());
+        this.pendingPayment = in.readInt();
     }
 
-    public Delivery (String date, Customer customer) {
-        this.date = date;
+    public Delivery (Customer customer, int pendingPayment, int paymentId) {
         this.customer = customer;
+        this.pendingPayment = pendingPayment;
+        this.paymentId = paymentId;
     }
 
     public static final Creator<Delivery> CREATOR = new Creator<Delivery>() {
@@ -35,8 +59,9 @@ public class Delivery implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.date);
         dest.writeParcelable(this.customer, flags);
+        dest.writeInt(this.pendingPayment);
+        dest.writeInt(this.paymentId);
     }
 
     public Customer getCustomer() {
@@ -47,11 +72,19 @@ public class Delivery implements Parcelable {
         this.customer = customer;
     }
 
-    public String getDate() {
-        return date;
+    public int getPendingPayment() {
+        return pendingPayment;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setPendingPayment(int pendingPayment) {
+        this.pendingPayment = pendingPayment;
+    }
+
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public int getPaymentId() {
+        return paymentId;
     }
 }

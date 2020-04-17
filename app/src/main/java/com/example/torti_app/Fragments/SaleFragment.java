@@ -1,0 +1,165 @@
+package com.example.torti_app.Fragments;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.torti_app.Adapters.ProductAdapter;
+import com.example.torti_app.Data;
+import com.example.torti_app.Models.Delivery;
+import com.example.torti_app.Models.Product;
+import com.example.torti_app.Models.User;
+import com.example.torti_app.R;
+import com.example.torti_app.singletons.VolleyS;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class SaleFragment extends Fragment
+        implements View.OnClickListener {
+
+    private RecyclerView recyclerView = null;
+    private TextView txvPendingPayment = null;
+    private Button btnRegisterSale = null, btnCreditSale = null;
+    private Delivery delivery = null;
+    private RecyclerView.Adapter adapter = null;
+
+    public SaleFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            this.delivery = getArguments().getParcelable("delivery");
+        }
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_sale, container, false);
+
+        this.recyclerView = rootView.findViewById(R.id.recyclerView);
+        this.txvPendingPayment = rootView.findViewById(R.id.txvPendingPayment);
+        this.btnRegisterSale = rootView.findViewById(R.id.btnRegisterSale);
+        this.btnRegisterSale.setOnClickListener(this);
+        this.txvPendingPayment.setOnClickListener(this);
+
+        if(this.delivery != null && this.delivery.getPendingPayment() == 1) {
+            this.txvPendingPayment.setVisibility(View.VISIBLE);
+        }
+
+        Product.getAll(getContext(), this.recyclerView);
+
+        return rootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == this.txvPendingPayment) {
+            return;
+        }
+
+        this.adapter = this.recyclerView.getAdapter();
+        if (this.adapter instanceof ProductAdapter) {
+            if (((ProductAdapter)this.adapter).products.isEmpty()) {
+                showToast("No hay productos");
+                return;
+            }
+
+            JSONArray details = new JSONArray();
+            for (Product product : ((ProductAdapter)this.adapter).products) {
+                if (product.getQuantity() == 0) continue;
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("product_id", product.getId());
+                    object.put("quantity", product.getQuantity());
+                    details.put(object);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (details.length() == 0) {
+                showToast("Escoja al menos un producto");
+                return;
+            }
+
+            if(v == this.btnRegisterSale) {
+                storeData(details, "save/sale");
+            } else if (v == this.btnCreditSale) {
+                storeData(details, "save-pending-payment");
+            }
+        }
+    }
+
+    private void storeData (JSONArray details, String route) {
+        if (this.delivery == null) return;
+
+        JSONObject sale = new JSONObject();
+        try {
+            sale.put("customer_id", this.delivery.getCustomer().getId());
+            sale.put("details", details);
+            Log.e("sale", sale.toString());
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Data.api_url + route,
+                    sale, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        boolean success = response.getBoolean("success");
+                        if (success) {
+                            showToast("Venta realizada correctamente");
+                            ((ProductAdapter)adapter).clear();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                   Map<String, String> headers = new HashMap<>();
+                   headers.put("Authorization", "bearer " + User.getToken(getContext()));
+                    return headers;
+                }
+            };
+            VolleyS.getInstance(getContext()).getQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showToast (String message) {
+        try {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

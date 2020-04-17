@@ -29,6 +29,10 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
         this.listener = listener;
     }
 
+    public DeliveryAdapter(List<Delivery> deliveries) {
+        this.deliveryList = deliveries;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,22 +52,21 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
         return this.deliveryList.size();
     }
 
+    public void setListener(OnDeliveryClickListener listener) {
+        this.listener = listener;
+    }
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txvCustomerName, txvCustomerLastName,
-                txvDate;
+        private TextView txvCustomerName;
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.txvCustomerName = itemView.findViewById(R.id.txvCustomerName);
-            this.txvCustomerLastName = itemView.findViewById(R.id.txvCustomerLastName);
-            this.txvDate = itemView.findViewById(R.id.txvDate);
         }
 
         private void bind (final Delivery delivery, final OnDeliveryClickListener listener) {
             Customer customer = delivery.getCustomer();
-            this.txvCustomerName.setText(String.format("Nombre: %s", customer.getName()));
-            this.txvCustomerLastName.setText(String.format(
-                    "Apellidos: %s %s", customer.getMaternalName(), customer.getPaternalName()));
-            this.txvDate.setText(String.format("Fecha: %s", delivery.getDate()));
+            this.txvCustomerName.setText(customer.getName());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

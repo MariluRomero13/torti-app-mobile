@@ -4,20 +4,21 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Customer implements Parcelable {
+    private int id;
     private String name = null;
     private String maternalName = null;
     private String paternalName = null;
 
     private Customer(Parcel in) {
+        this.id = in.readInt();
         this.name = in.readString();
         this.maternalName = in.readString();
         this.paternalName = in.readString();
     }
 
-    public Customer(String name, String maternalName, String paternalName) {
+    public Customer (int id, String name) {
+        this.id = id;
         this.name = name;
-        this.maternalName = maternalName;
-        this.paternalName = paternalName;
     }
 
     public static final Creator<Customer> CREATOR = new Creator<Customer>() {
@@ -39,6 +40,7 @@ public class Customer implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.name);
         dest.writeString(this.maternalName);
         dest.writeString(this.paternalName);
@@ -66,5 +68,13 @@ public class Customer implements Parcelable {
 
     public void setPaternalName(String paternalName) {
         this.paternalName = paternalName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -41,18 +41,18 @@ public class HistoryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new HistoryAdapter(this.getList(), new HistoryAdapter.OnHistoryClickListener() {
+        /*recyclerView.setAdapter(new HistoryAdapter(this.getList(), new HistoryAdapter.OnHistoryClickListener() {
             @Override
             public void onHistoryClick(History history) {
                 Toast.makeText(getContext(),
                         history.getCustomer().getName(), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(), HistoryDetailActivity.class));
             }
-        }));
+        }));*/
         return rootView;
     }
 
-    private List<History> getList () {
+    /*private List<History> getList () {
         return new ArrayList<History>(){{
             add(new History("2019/02/21",
                     new Customer("Mortilio", "Gonzalez", "De montes")));
@@ -61,5 +61,5 @@ public class HistoryFragment extends Fragment {
             add(new History("2019/02/21",
                     new Customer("Luis", "Perez", "Perez")));
         }};
-    }
+    }*/
 }
