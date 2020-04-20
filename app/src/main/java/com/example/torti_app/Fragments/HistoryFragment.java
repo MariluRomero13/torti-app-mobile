@@ -7,20 +7,37 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.torti_app.Adapters.DeliveryAdapter;
 import com.example.torti_app.Adapters.HistoryAdapter;
+import com.example.torti_app.Data;
 import com.example.torti_app.Models.Customer;
 import com.example.torti_app.Models.History;
+import com.example.torti_app.Models.PendingPayments;
+import com.example.torti_app.Models.User;
 import com.example.torti_app.R;
 import com.example.torti_app.activities.HistoryDetailActivity;
+import com.example.torti_app.singletons.VolleyS;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,29 +54,41 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        /*recyclerView.setAdapter(new HistoryAdapter(this.getList(), new HistoryAdapter.OnHistoryClickListener() {
+        final RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
+
+        JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, Data.api_url + "get-sales-history", null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("HISTORY", response.toString());
+                        if(response.length() > 0){
+                            Gson g = new Gson();
+                            Type t = new TypeToken<List<History>>(){}.getType();
+
+                            List<History> historyList =
+                                    g.fromJson(response.toString(), t);
+
+                            recyclerView.setHasFixedSize(true);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            recyclerView.setAdapter(new HistoryAdapter(historyList));
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onHistoryClick(History history) {
-                Toast.makeText(getContext(),
-                        history.getCustomer().getName(), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), HistoryDetailActivity.class));
+            public void onErrorResponse(VolleyError error) {
+                Log.d("HISTORY-ERROR", error.toString());
             }
-        }));*/
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map <String, String> headers = new HashMap<>();
+                headers.put("Authorization", "bearer " + User.getToken(getContext()));
+                return headers;
+            }
+        };
+
+        VolleyS.getInstance(getContext()).getQueue().add(json);
         return rootView;
     }
-
-    /*private List<History> getList () {
-        return new ArrayList<History>(){{
-            add(new History("2019/02/21",
-                    new Customer("Mortilio", "Gonzalez", "De montes")));
-            add(new History("2019/10/02",
-                    new Customer("Petronila", "Montes", "De oca")));
-            add(new History("2019/02/21",
-                    new Customer("Luis", "Perez", "Perez")));
-        }};
-    }*/
 }

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.pg);
         progressBar.setVisibility(View.VISIBLE);
-
+        //User.setToken(getApplicationContext(), null);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
