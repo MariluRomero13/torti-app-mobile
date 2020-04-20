@@ -21,4 +21,6 @@
     <string name="label_payment_credit">¿Concretar pago a contado?</string>
     <string name="txtCancelar">Cancelar</string>
     <string name="txtDepositar">Depositar</string>
+    <string name="txtTotalPagar">Total a pagar</string>
+    <string name="txtPrecio">Precio</string>
 </resources>
