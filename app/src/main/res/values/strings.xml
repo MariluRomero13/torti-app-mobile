@@ -19,4 +19,6 @@
     <string name="label_pending_payment">Pagos pendientes</string>
     <string name="label_confirm">Confirmar</string>
     <string name="label_payment_credit">¿Concretar pago a contado?</string>
+    <string name="txtCancelar">Cancelar</string>
+    <string name="txtDepositar">Depositar</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet_pp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +7,7 @@
     android:padding="30dp">
 
     <TextView
-        android:id="@+id/txtMontoPagar"
+        android:id="@+id/txt_montoPagar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txtMontoPagar"
@@ -20,26 +19,27 @@
         android:id="@+id/txt_pago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlanco"
         android:backgroundTint="@android:color/white"
         android:focusableInTouchMode="true"
-        android:layout_below="@id/txtMontoPagar" />
+        android:layout_below="@id/txt_montoPagar" />
 
     <Button
-        android:id="@+id/btn_abonar"
+        android:id="@+id/btn_cancelar"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="@string/txtAbonar"
+        android:text="@string/txtCancelar"
         android:textColor="@color/colorBlanco"
         android:background="@drawable/rounded_button_yellow"
-        android:layout_toStartOf="@id/btn_liquidar"
+        android:layout_toStartOf="@id/btn_depositar"
         android:layout_marginTop="90dp"
         android:layout_marginEnd="10dp"/>
 
     <Button
-        android:id="@+id/btn_liquidar"
+        android:id="@+id/btn_depositar"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="@string/txtliquidar"
+        android:text="@string/txtDepositar"
         android:textColor="@color/colorBlanco"
         android:background="@drawable/rounded_button"
         android:layout_marginTop="90dp"

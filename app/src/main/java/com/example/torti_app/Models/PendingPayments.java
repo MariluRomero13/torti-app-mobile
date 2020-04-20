@@ -1,38 +1,38 @@
 package com.example.torti_app.Models;
 
 public class PendingPayments {
-    private String Producto;
-    private int Cantidad;
-    private Double Total;
 
-    public PendingPayments(String producto, int cantidad, Double total) {
-        Producto = producto;
-        Cantidad = cantidad;
-        Total = total;
+    private int quantity;
+    private int product_id;
+    private String product;
+
+    public PendingPayments(int quantity, int product_id, String product) {
+        this.quantity = quantity;
+        this.product_id = product_id;
+        this.product = product;
     }
 
-    public String getProducto() {
-        return Producto;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setProducto(String producto) {
-        Producto = producto;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public int getCantidad() {
-        return Cantidad;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setCantidad(int cantidad) {
-        Cantidad = cantidad;
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
-    public Double getTotal() {
-        return Total;
+    public String getProduct() {
+        return product;
     }
 
-    public void setTotal(Double total) {
-        Total = total;
+    public void setProduct(String product) {
+        this.product = product;
     }
-
 }

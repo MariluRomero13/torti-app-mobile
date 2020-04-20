@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class DeliveryFragment extends Fragment
                 for (int i = 0; i < response.length() ; i++) {
                     try {
                         JSONObject data = response.getJSONObject(i);
-
+                        Delivery.payment_id = data.getInt("payment_id");
                         Customer customer = new Customer(data.getInt("id"), data.getString("customer"));
                         deliveries.add(new Delivery(
                                 customer, data.getInt("pending_payment"), data.getInt("payment_id")));

@@ -39,7 +39,7 @@
             android:textColor="@color/colorBlanco"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"/>
+            android:layout_marginStart="60dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,17 +48,8 @@
             android:textColor="@color/colorBlanco"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txtPagar"
-            android:textColor="@color/colorBlanco"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="60dp"/>
 
     </RelativeLayout>
 
@@ -67,6 +58,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/r1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtPagar"
+        android:textSize="16sp"
+        android:textColor="@color/colorBlanco"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="50dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_pagar"

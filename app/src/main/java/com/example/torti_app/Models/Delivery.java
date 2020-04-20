@@ -29,6 +29,9 @@ public class Delivery implements Parcelable {
     private Customer customer = null;
     private int pendingPayment;
     private int paymentId;
+
+    public static int payment_id;
+
     private Delivery(Parcel in) {
         this.customer = in.readParcelable(Customer.class.getClassLoader());
         this.pendingPayment = in.readInt();
