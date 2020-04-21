@@ -23,4 +23,5 @@
     <string name="txtDepositar">Depositar</string>
     <string name="txtTotalPagar">Total a pagar</string>
     <string name="txtPrecio">Precio</string>
+    <string name="map_key">AIzaSyAdXdnGyvsXWdfwbkcABMl-3FEbceEN3y8</string>
 </resources>
