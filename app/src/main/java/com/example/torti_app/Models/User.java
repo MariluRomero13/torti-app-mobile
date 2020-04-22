@@ -47,8 +47,8 @@ public class User {
                         public void onResponse(JSONObject response) {
                             Log.d("LOGIN::", response.toString());
                             try {
-                                JSONObject token = response.getJSONObject("token");
-                                setToken(context, token.getString("token"));
+                                String token = response.getString("token");
+                                setToken(context, token);
                                 Log.d("TOKEN::", getToken(context));
                                 activity.startActivity(new Intent(context, DeliveryHistoryActivity.class));
                                 activity.finish();

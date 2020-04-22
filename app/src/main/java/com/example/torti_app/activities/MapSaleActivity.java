@@ -25,7 +25,9 @@ public class MapSaleActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_sale);
-        this.delivery = getIntent().getParcelableExtra("delivery");
+        if (getIntent().getExtras() != null) {
+            this.delivery = getIntent().getParcelableExtra("delivery");
+        }
         this.tabSale = findViewById(R.id.tabSale);
         this.tabMap = findViewById(R.id.tabMap);
         this.tabMap.setOnClickListener(this);
@@ -50,11 +52,11 @@ public class MapSaleActivity extends AppCompatActivity
                         .getBackground())
                         .setColor(getColor(R.color.colorNegroMate));
                 this.currentFragment = new SaleFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("delivery", this.delivery);
-                this.currentFragment.setArguments(bundle);
                 break;
         }
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("delivery", this.delivery);
+        this.currentFragment.setArguments(bundle);
         changeFragment(this.currentFragment);
     }
 
