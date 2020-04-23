@@ -87,8 +87,19 @@ public class MapFragment extends Fragment {
                 Log.e("si" ,"entro");
                 if(response.length() == 0) {
                     latLng = new LatLng(25.5528341, -103.3926577);
-                    map.addMarker(new MarkerOptions().position(latLng)
-                            .title("En algun lugar del perro mundo")).showInfoWindow();
+                    MarkerOptions markerOptions = new MarkerOptions()
+                            .position(latLng);
+                    if (getContext() != null) {
+                        BitmapDrawable bitmapDrawable =
+                                (BitmapDrawable) ContextCompat.getDrawable(getContext(), R.drawable.shop_icon);
+                        if (bitmapDrawable != null) {
+                            Bitmap bitmap = bitmapDrawable.getBitmap();
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(
+                                    Bitmap.createScaledBitmap(bitmap, 100, 100, false)
+                            ));
+                        }
+                    }
+                    map.addMarker(markerOptions);
                 } else {
                 for (int i = 0; i < response.length() ; i++) {
                     try {

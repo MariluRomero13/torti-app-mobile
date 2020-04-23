@@ -59,11 +59,18 @@ public class DeliveryFragment extends Fragment
         return rootView;
     }
 
-    private void getAllDeliveries () {
+    @Override
+    public void onStart() {
+        this.getAllDeliveriesWithoutSale();
+        super.onStart();
+    }
+
+    private void getAllDeliveriesWithoutSale () {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Data.api_url + "get-routes-without-sale",
                 null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Log.d("Hola 1", response.toString());
                 List<Delivery> deliveries = new ArrayList<>();
                 for (int i = 0; i < response.length() ; i++) {
                     try {
@@ -97,6 +104,44 @@ public class DeliveryFragment extends Fragment
         VolleyS.getInstance(getContext()).getQueue().add(request);
     }
 
+    private void getAllDeliveries () {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Data.api_url + "routes-by-employee",
+                null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d("Hola 2", response.toString());
+                List<Delivery> deliveries = new ArrayList<>();
+                for (int i = 0; i < response.length() ; i++) {
+                    try {
+                        JSONObject data = response.getJSONObject(i);
+                        Delivery.payment_id = data.getInt("payment_id");
+                        Customer customer = new Customer(data.getInt("id"), data.getString("customer"));
+                        deliveries.add(new Delivery(
+                                customer, data.getInt("pending_payment"), data.getInt("payment_id")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(new DeliveryAdapter(deliveries, DeliveryFragment.this));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map <String, String> headers = new HashMap<>();
+                headers.put("Authorization", "bearer " + User.getToken(getContext()));
+                return headers;
+            }
+        };
+
+        VolleyS.getInstance(getContext()).getQueue().add(request);
+    }
 
     @Override
     public void onDeliveryClick(Delivery delivery) {

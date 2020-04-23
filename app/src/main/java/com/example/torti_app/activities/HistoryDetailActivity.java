@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.torti_app.Adapters.HistorySaleAdapter;
 import com.example.torti_app.Data;
+import com.example.torti_app.Models.Delivery;
 import com.example.torti_app.Models.History;
 import com.example.torti_app.Models.HistorySale;
 import com.example.torti_app.Models.User;
@@ -68,7 +69,7 @@ public class HistoryDetailActivity extends AppCompatActivity {
     }
 
     private void getHistorySaleLoad() {
-        JsonObjectRequest json = new JsonObjectRequest(Request.Method.GET, Data.api_url + "sale-details/" + history.getId(),
+        JsonObjectRequest json = new JsonObjectRequest(Request.Method.GET, Data.api_url + "sale-details/" + (history.getId() - 1),
                 null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

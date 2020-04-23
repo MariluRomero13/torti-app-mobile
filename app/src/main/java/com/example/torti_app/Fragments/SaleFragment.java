@@ -157,6 +157,7 @@ public class SaleFragment extends Fragment
                     try {
                         boolean success = response.getBoolean("success");
                         if (success) {
+                            getActivity().finish();
                             showToast("Venta realizada correctamente");
                             dialogSale.dismiss();
                             ((ProductAdapter)adapter).clear();
