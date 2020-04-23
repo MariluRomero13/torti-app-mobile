@@ -55,22 +55,22 @@ public class DeliveryFragment extends Fragment
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
         this.recyclerView = rootView.findViewById(R.id.recyclerView);
-        this.getAllDeliveries();
+        if(!Data.load) {
+            //Toast.makeText(getContext(), "Load 1: " + Data.load, Toast.LENGTH_SHORT).show();
+            this.getRoutesByEmployee();
+        } else {
+            //Toast.makeText(getContext(), "Load 2: " + Data.load, Toast.LENGTH_SHORT).show();
+            this.getRoutesWithoutSale();
+        }
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        this.getAllDeliveriesWithoutSale();
-        super.onStart();
-    }
-
-    private void getAllDeliveriesWithoutSale () {
+    private void getRoutesWithoutSale () {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Data.api_url + "get-routes-without-sale",
                 null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d("Hola 1", response.toString());
+                Log.d("Delieveries 2", response.toString());
                 List<Delivery> deliveries = new ArrayList<>();
                 for (int i = 0; i < response.length() ; i++) {
                     try {
@@ -104,12 +104,12 @@ public class DeliveryFragment extends Fragment
         VolleyS.getInstance(getContext()).getQueue().add(request);
     }
 
-    private void getAllDeliveries () {
+    private void getRoutesByEmployee () {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, Data.api_url + "routes-by-employee",
                 null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d("Hola 2", response.toString());
+                Log.d("Delieveries 1", response.toString());
                 List<Delivery> deliveries = new ArrayList<>();
                 for (int i = 0; i < response.length() ; i++) {
                     try {
@@ -129,7 +129,7 @@ public class DeliveryFragment extends Fragment
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("Delieveries1-Error", error.toString());
             }
         }){
             @Override
@@ -145,6 +145,7 @@ public class DeliveryFragment extends Fragment
 
     @Override
     public void onDeliveryClick(Delivery delivery) {
+        Data.load = false;
         Intent intent = new Intent(getContext(), MapSaleActivity.class);
         intent.putExtra("delivery", delivery);
         startActivity(intent);

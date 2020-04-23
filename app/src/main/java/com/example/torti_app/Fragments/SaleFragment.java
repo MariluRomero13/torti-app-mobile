@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -155,8 +156,10 @@ public class SaleFragment extends Fragment
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
+                        Log.d("SALE::", response.toString());
                         boolean success = response.getBoolean("success");
                         if (success) {
+                            Data.load = true;
                             getActivity().finish();
                             showToast("Venta realizada correctamente");
                             dialogSale.dismiss();
@@ -169,6 +172,7 @@ public class SaleFragment extends Fragment
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    Log.d("SALE-ERROR::", error.toString());
                     //This indicates error on authentication
                     if (error instanceof AuthFailureError
                             || (error.networkResponse != null && error.networkResponse.statusCode == 401)){

@@ -69,7 +69,8 @@ public class HistoryDetailActivity extends AppCompatActivity {
     }
 
     private void getHistorySaleLoad() {
-        JsonObjectRequest json = new JsonObjectRequest(Request.Method.GET, Data.api_url + "sale-details/" + (history.getId() - 1),
+        Log.d("HISTORIESDETAILS", String.valueOf(history.getId()));
+        JsonObjectRequest json = new JsonObjectRequest(Request.Method.GET, Data.api_url + "sale-details/" + history.getId(),
                 null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
