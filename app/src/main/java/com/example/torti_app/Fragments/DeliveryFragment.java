@@ -55,13 +55,14 @@ public class DeliveryFragment extends Fragment
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_delivery, container, false);
         this.recyclerView = rootView.findViewById(R.id.recyclerView);
-        if(!Data.load) {
+        this.getRoutesWithoutSale();
+        /*if(!Data.load) {
             //Toast.makeText(getContext(), "Load 1: " + Data.load, Toast.LENGTH_SHORT).show();
             this.getRoutesByEmployee();
         } else {
             //Toast.makeText(getContext(), "Load 2: " + Data.load, Toast.LENGTH_SHORT).show();
             this.getRoutesWithoutSale();
-        }
+        }*/
         return rootView;
     }
 
